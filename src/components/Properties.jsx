@@ -24,6 +24,7 @@ const Properties = ({ properties, seller }) => {
               maxWidth: "280px",
               cursor: "pointer",
               width: "100%",
+              overflow: "hidden",
             }}>
             <div
               className="p-3 h-100 d-flex flex-column justify-content-end text-light"

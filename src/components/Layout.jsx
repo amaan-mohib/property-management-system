@@ -24,7 +24,7 @@ const Layout = () => {
                   <Nav.Link as={Link} to="/dashboard">
                     Dashboard
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/profile">
+                  <Nav.Link as={Link} to={`/profile/${user.uid}`}>
                     Profile
                   </Nav.Link>
                 </>

@@ -13,6 +13,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./components/Dashboard";
 import Property from "./components/Property";
 import EditProperty from "./components/EditProperty";
+import Profile from "./components/Profile";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,10 +33,10 @@ ReactDOM.render(
               }
             />
             <Route
-              path="/profile"
+              path="/profile/:id"
               element={
                 <PrivateRoute>
-                  <Sell />
+                  <Profile />
                 </PrivateRoute>
               }
             />

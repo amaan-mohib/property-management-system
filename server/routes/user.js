@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
 router.post("/add-phone", (req, res) => {
   const body = req.body;
   db.query(
-    "INSERT into Users_Phone (U_id, U_Mobile) VALUES ?, ?",
+    "INSERT into Users_Phone (U_id, U_Mobile) VALUES ?",
     [body.map((d) => [d.uid, d.mobile])],
     (err, result) => {
       if (err) console.error(err);
@@ -92,6 +92,34 @@ router.post("/add-address", (req, res) => {
       else {
         res.send("User/s address inserted");
         console.log(result);
+      }
+    }
+  );
+});
+
+router.get("/:id/phone", (req, res) => {
+  const user_id = req.params.id;
+  db.query(
+    "select * from Users_Phone where U_id = ?",
+    [user_id],
+    (err, result) => {
+      if (err) console.error(err);
+      else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+router.get("/:id/address", (req, res) => {
+  const user_id = req.params.id;
+  db.query(
+    "select * from Users_Add where U_id = ?",
+    [user_id],
+    (err, result) => {
+      if (err) console.error(err);
+      else {
+        res.send(result);
       }
     }
   );
@@ -130,6 +158,26 @@ router.put("/update", (req, res) => {
 router.delete("/delete", (req, res) => {
   const body = req.body;
   db.query("delete from Users where U_id = ?", [body.uid], (err, result) => {
+    if (err) console.error(err);
+    else {
+      console.log(result);
+      res.send("Record deleted");
+    }
+  });
+});
+router.delete("/delete-add/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("delete from Users_Add where Id = ?", [id], (err, result) => {
+    if (err) console.error(err);
+    else {
+      console.log(result);
+      res.send("Record deleted");
+    }
+  });
+});
+router.delete("/delete-phone/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("delete from Users_Phone where Id = ?", [id], (err, result) => {
     if (err) console.error(err);
     else {
       console.log(result);

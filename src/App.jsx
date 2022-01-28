@@ -14,6 +14,8 @@ import { API } from "./config";
 
 function App() {
   const [properties, setProperties] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredProps, setFilteredProps] = useState([]);
 
   useEffect(() => {
     axios
@@ -24,6 +26,17 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    const filteredData = properties.filter((item) => {
+      return [item.Name, item.Price, item.Area]
+        .join("")
+        .toLowerCase()
+        .includes(searchInput.toLowerCase());
+    });
+
+    setFilteredProps(filteredData);
+  }, [searchInput, properties]);
+
   return (
     <div className="m-3">
       <Container as="header">
@@ -32,16 +45,17 @@ function App() {
 
           <InputGroup className="mt-5">
             <FormControl
-              placeholder="Search for locality, landmark, or seller"
+              placeholder="Search for locality, landmark, or price"
               aria-label="Search"
               aria-describedby="search"
+              onChange={(e) => setSearchInput(e.target.value)}
             />
             <Button variant="outline-secondary" id="search">
               Search
             </Button>
           </InputGroup>
         </Container>
-        <Properties properties={properties} setProperties={properties} />
+        <Properties properties={filteredProps} />
       </Container>
     </div>
   );

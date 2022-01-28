@@ -5,5 +5,5 @@ export const formatPrice = (price = 0) => {
     return `${price / 100000} Lac`;
   } else if (price >= 10000) {
     return `${price / 10000} K`;
-  }
+  } else return price;
 };

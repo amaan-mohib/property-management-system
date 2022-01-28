@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   Col,
@@ -295,7 +295,15 @@ const Registraions = ({ pid }) => {
                 <tr>
                   <td>{reg.R_id}</td>
                   <td>{reg.P_id}</td>
-                  <td>{reg.Candidate_id}</td>
+                  <td>
+                    <Button
+                      variant="link"
+                      size="sm"
+                      as={Link}
+                      to={`/profile/${reg.Candidate_id}`}>
+                      {reg.Candidate_id}
+                    </Button>
+                  </td>
                   <td>{new Date(reg.Date_of_Reg).toDateString()}</td>
                   <td>
                     {reg.Date_of_Exp
