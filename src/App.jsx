@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import {
   Button,
@@ -8,9 +8,21 @@ import {
   Nav,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Properties from "./components/Properties";
+import axios from "axios";
+import { API } from "./config";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${API}/properties/all`)
+      .then((res) => {
+        setProperties(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div className="m-3">
@@ -29,6 +41,7 @@ function App() {
             </Button>
           </InputGroup>
         </Container>
+        <Properties properties={properties} setProperties={properties} />
       </Container>
     </div>
   );

@@ -3,7 +3,13 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
+app.use(express.static("./public"));
 app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 const users = require("./routes/user");
 const properties = require("./routes/properties");

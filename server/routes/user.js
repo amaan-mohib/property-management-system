@@ -99,13 +99,17 @@ router.post("/add-address", (req, res) => {
 
 router.get("/:id", (req, res) => {
   const user_id = req.params.id;
-  db.query("select * from Users where U_id = ?", [user_id], (err, result) => {
-    if (err) console.error(err);
-    else {
-      console.log("sent result");
-      res.send(result);
+  db.query(
+    "select U_id,Name,Email,DOB from Users where U_id = ?",
+    [user_id],
+    (err, result) => {
+      if (err) console.error(err);
+      else {
+        console.log("sent result");
+        res.send(result);
+      }
     }
-  });
+  );
 });
 
 router.put("/update", (req, res) => {

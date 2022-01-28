@@ -5,8 +5,8 @@ const db = require("../db");
 router.post("/add", (req, res) => {
   const body = req.body;
   db.query(
-    "INSERT into Registrations (P_id, Date_of_Reg, Candidate_id ) VALUES ?",
-    [body.pid, body.dor, body, cid],
+    "INSERT into Registrations (P_id, Date_of_Reg, Candidate_id, Approval ) VALUES ( ? )",
+    body.map((d) => [d.pid, d.dor, d.cid, d.approval]),
     (err, result) => {
       if (err) console.error(err);
       else {
@@ -31,12 +31,40 @@ router.get("/:id", (req, res) => {
     }
   );
 });
+router.get("/all/:pid", (req, res) => {
+  const p_id = req.params.pid;
+  db.query(
+    "select * from Registrations where P_id = ?",
+    [p_id],
+    (err, result) => {
+      if (err) console.error(err);
+      else {
+        console.log("sent result");
+        res.send(result);
+      }
+    }
+  );
+});
 
+router.put("/reject-all", (req, res) => {
+  const body = req.body;
+  db.query(
+    "update Registrations set Approval = 'Rejected' where Seller_id = ? and Approval = 'Pending'",
+    [body.sid],
+    (err, result) => {
+      if (err) console.error(err);
+      else {
+        console.log(result);
+        res.send("Record updated");
+      }
+    }
+  );
+});
 router.put("/update", (req, res) => {
   const body = req.body;
   db.query(
-    "update Registrations set Date_of_Reg = ?, Date_of_Exp = ?, Approval = ? where R_id = ?",
-    [body.dor, body.doe, body.approval, body.rid],
+    "update Registrations set Date_of_Exp = ?, Approval = ? where R_id = ?",
+    [body.doe, body.approval, body.rid],
     (err, result) => {
       if (err) console.error(err);
       else {

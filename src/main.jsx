@@ -9,6 +9,10 @@ import AuthProvider from "./contexts/AuthProvider";
 import Register from "./components/Register";
 import Layout from "./components/Layout";
 import Sell from "./components/Sell";
+import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./components/Dashboard";
+import Property from "./components/Property";
+import EditProperty from "./components/EditProperty";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +23,39 @@ ReactDOM.render(
             <Route path="/" element={<App />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/sell" element={<Sell />} />
+            <Route
+              path="/sell"
+              element={
+                <PrivateRoute>
+                  <Sell />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Sell />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit/property/:id"
+              element={
+                <PrivateRoute>
+                  <EditProperty />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/property/:id" element={<Property />} />
           </Route>
         </Routes>
       </BrowserRouter>

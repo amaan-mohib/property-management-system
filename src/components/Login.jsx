@@ -48,6 +48,7 @@ const Login = () => {
           <Form.Control
             type="email"
             name="email"
+            autoComplete="on"
             required
             placeholder="Enter email"
           />
