@@ -38,11 +38,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    signOut(auth)
-      .then(() => {
-        setUser(null);
-      })
-      .catch((err) => console.error(err));
+    setUser(null);
   };
   const value = { user, login, logout };
 

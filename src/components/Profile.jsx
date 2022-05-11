@@ -16,7 +16,7 @@ const Profile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [userAdd, setUserAdd] = useState([]);
   const [userPhone, setUserPhone] = useState([]);
   const [phoneNo, setPhone] = useState("");
@@ -81,6 +81,15 @@ const Profile = () => {
           <Col>
             <h1>{userData.Name}</h1>
             <p>{userData.Email}</p>
+            <hr />
+            <Button
+              variant="outline-danger"
+              onClick={() => {
+                logout();
+                navigate("/", { replace: true });
+              }}>
+              Logout
+            </Button>
           </Col>
           <Col>
             <p className="small text-muted">Mobile number/s</p>

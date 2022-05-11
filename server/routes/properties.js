@@ -1,9 +1,8 @@
 const express = require("express");
-const store = require("../middleware/multer");
 const router = express.Router();
 const db = require("../db");
 
-router.post("/add", store.single("image"), (req, res) => {
+router.post("/add", (req, res) => {
   const body = req.body;
 
   db.query(

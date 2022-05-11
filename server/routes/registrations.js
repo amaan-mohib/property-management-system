@@ -46,6 +46,23 @@ router.get("/all/:pid", (req, res) => {
   );
 });
 
+//get registration status for a given property and user
+router.get("/reg/:pid/:cid", (req, res) => {
+  const pid = req.params.pid;
+  const cid = req.params.cid;
+  db.query(
+    "select * from Registrations where P_id = ? and Candidate_id = ?",
+    [pid, cid],
+    (err, result) => {
+      if (err) console.error(err);
+      else {
+        console.log("sent result");
+        res.send(result);
+      }
+    }
+  );
+});
+
 router.put("/reject-all", (req, res) => {
   const body = req.body;
   db.query(
@@ -60,6 +77,7 @@ router.put("/reject-all", (req, res) => {
     }
   );
 });
+
 router.put("/update", (req, res) => {
   const body = req.body;
   db.query(

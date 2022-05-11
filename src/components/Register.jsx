@@ -82,20 +82,6 @@ const Register = () => {
           <Form.Control type="date" name="dob" placeholder="Date of Birth" />
           <Form.Label>Date of Birth</Form.Label>
         </Form.Group>
-        <Form.Group className="mb-3 form-floating" controlId="formBasicPhone">
-          <Form.Control type="phone" name="mobile" placeholder="Phone number" />
-          <Form.Label>Phone Number</Form.Label>
-        </Form.Group>
-        <Form.Group className="mb-3 form-floating" controlId="formBasicAddress">
-          <Form.Control
-            as="textarea"
-            type="text"
-            name="address"
-            placeholder="Address"
-            style={{ height: "100px" }}
-          />
-          <Form.Label>Address</Form.Label>
-        </Form.Group>
         <Row className="align-items-center">
           <Col xs="auto">
             <Button variant="primary" type="submit">

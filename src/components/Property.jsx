@@ -11,6 +11,7 @@ const Property = () => {
   const [data, setData] = useState(null);
   const [seller, setSeller] = useState(null);
   const [approved, setApproved] = useState(false);
+  const [approvedState, setApprovedState] = useState("Pending");
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -22,10 +23,25 @@ const Property = () => {
         setData(res.data[0]);
         axios.get(`${API}/user/${res.data[0].Seller_id}`).then((res2) => {
           setSeller(res2.data[0]);
+          getReg(id, user.uid);
         });
       })
       .catch((err) => console.error(err));
   }, []);
+
+  const getReg = (pid, cid) => {
+    axios
+      .get(`${API}/registrations/reg/${pid}/${cid}`)
+      .then((res) => {
+        const data = res.data;
+        console.log(res.data);
+        if (data.length > 0) {
+          setApproved(true);
+          setApprovedState(data[0].Approval);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   const request = () => {
     axios
@@ -88,7 +104,9 @@ const Property = () => {
               className="w-100"
               disabled={user.uid === data.Buyer_id || approved}
               onClick={request}>
-              {approved ? "Approval pending" : "Request to buy"}
+              {approved
+                ? `Approval ${approvedState.toLowerCase()}`
+                : "Request to buy"}
             </Button>
           )}
         </Col>
